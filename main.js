@@ -1,4 +1,5 @@
 
+
 let computerChoice;
 let humanChoice;
 let humanScore = 0;
@@ -85,11 +86,21 @@ function playRound(human, computer) {
         score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;   
         break; 
         }
-
-            
-
 }
-     
+
+function playAgain() {
+    const winBtn = document.createElement("button")
+    winBtn.setAttribute("id", "winBtn");
+    winBtn.textContent = "Play Again!";
+    resultContainer.appendChild(winBtn);
+
+    const btn = document.querySelector("#winBtn")
+    btn.addEventListener("click", () => {
+        location.reload();
+    });
+}
+
+const resultContainer = document.querySelector("#gameResult");    
 const buttons = document.querySelectorAll("button");
 
 buttons.forEach((button) => {
@@ -99,6 +110,16 @@ buttons.forEach((button) => {
             playRound(button.id, computerChoice);
             playerSelectionMsg.textContent = `You choose ${button.id}`;
         };
+
+        if(humanScore == 5) {
+          console.log("You won!"); 
+          playAgain();
+
+        }
+        else if (computerScore == 5) {
+            console.log("You lost! Try Again");
+            playAgain();
+        }
     });
 })
 
