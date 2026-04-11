@@ -97,6 +97,7 @@ function playAgain() {
     const btn = document.querySelector("#winBtn")
     btn.addEventListener("click", () => {
         location.reload();
+        return;
     });
 }
 
@@ -109,26 +110,16 @@ buttons.forEach((button) => {
             getComputerChoice();
             playRound(button.id, computerChoice);
             playerSelectionMsg.textContent = `You choose ${button.id}`;
-        };
 
-        if(humanScore == 5) {
-          console.log("You won!"); 
-          playAgain();
-
-        }
-        else if (computerScore == 5) {
-            console.log("You lost! Try Again");
+            if(humanScore == 5) {
+            console.log("player win")
             playAgain();
-        }
+            }
+            else if (computerScore == 5) {
+            console.log("enemy win")
+            playAgain();
+            }
+        };
     });
-})
+});
 
-
-
-    
-
- 
-
-
-
- 
