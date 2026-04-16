@@ -112,11 +112,11 @@ buttons.forEach((button) => {
             playerSelectionMsg.textContent = `You choose ${button.id}`;
 
             if(humanScore == 5) {
-            console.log("player win")
+            computerSelectionMsg.textContent = "You Won! Play Again?";
             playAgain();
             }
             else if (computerScore == 5) {
-            console.log("enemy win")
+            computerSelectionMsg.textContent = "You lost! Try again?";
             playAgain();
             }
         };
