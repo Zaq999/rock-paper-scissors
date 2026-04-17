@@ -6,12 +6,15 @@ let humanScore = 0;
 let computerScore = 0;
 let computerSelection;
 let humanSelection;
-let gameRound;
 
 const playerSelectionMsg = document.querySelector("#playerSelection");
 const computerSelectionMsg = document.querySelector("#computerSelection");
-const score = document.querySelector("#score");
+const playerScore = document.querySelector("#playerScore");
+const enemyScore = document.querySelector("#computerScore");
+const roundResultMsg = document.querySelector("#result");
+const gameResultMsg = document.querySelector("#gameResult")
  
+
 function getComputerChoice() {
     randomChoice = Math.floor(Math.random() * 3);
     
@@ -31,59 +34,54 @@ function getComputerChoice() {
 function playRound(human, computer) {
     switch(true) {
         case human == 'rock' && computer == 'rock':
-        computerSelectionMsg.textContent = "Computer chose Rock. It's a tie!"
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        computerSelectionMsg.textContent = "Computer chose Rock.";
+        roundResultMsg.textContent = "Rock versus Rock. It's a tie!";
         break;
             
         case human == 'rock' && computer == 'paper':
-        computerSelectionMsg.textContent = "Computer chose Paper. You loose!"
+        computerSelectionMsg.textContent = "Computer chose Paper."
         computerScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Paper beats rock! Enemy wins!";
         break;
             
         case human == 'rock' && computer == 'scissors':
-        computerSelectionMsg.textContent = 'Computer chose Scissors. You win!';
+        computerSelectionMsg.textContent = 'Computer chose Scissors.';
         humanScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Rock beats Scissors! You win!";
         break;
         
         case human == 'paper' && computer == 'rock':
-        computerSelectionMsg.textContent = 'Computer chose Rock. You win!';
+        computerSelectionMsg.textContent = 'Computer chose Rock.';
         humanScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Paper beats rock! You win!";
         break;
             
         case human == 'paper' && computer =='paper':
-        computerSelectionMsg.textContent = "Computer chose Paper. It's a tie!";
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        computerSelectionMsg.textContent = "Computer chose Paper.";
+        roundResultMsg.textContent= "Paper versus Paper! It's a tie!";
         break;
             
         case human =='paper' && computer == 'scissors':
-        computerSelectionMsg.textContent = 'Computer chose Scissors. You Loose!';
+        computerSelectionMsg.textContent = 'Computer chose Scissors.';
         computerScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Scissors beats paper! You loose!";
         break;
             
         case human == 'scissors' && computer == 'rock':
-        computerSelectionMsg.textContent = 'Computer chose Rock. You loose'
+        computerSelectionMsg.textContent = 'Computer chose Rock.';
         computerScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Rock beats Scissors! You loose!";
+        break;
             
         case human == 'scissors' && computer == 'paper':
-        computerSelectionMsg.textContent = "Computer chose Paper. You win!";
+        computerSelectionMsg.textContent = "Computer chose Paper.";
         humanScore ++;
-        gameRound++;
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;
+        roundResultMsg.textContent= "Scissors beats paper! You win!";
         break;
             
         case human == 'scissors' && computer == 'scissors':
-        computerSelectionMsg.textContent = "Computer chose Scissors. It's a tie!";
-        score.textContent = `Player score: ${humanScore}  Computer: ${computerScore}`;   
+        computerSelectionMsg.textContent = "Computer chose Scissors.";
+        roundResultMsg.textContent= "Scissors versus Scissors! It's a tie!";
         break; 
         }
 }
@@ -93,6 +91,7 @@ function playAgain() {
     winBtn.setAttribute("id", "winBtn");
     winBtn.textContent = "Play Again!";
     resultContainer.appendChild(winBtn);
+    winBtn.setAttribute("style", "margin-left: 5px");
 
     const btn = document.querySelector("#winBtn")
     btn.addEventListener("click", () => {
@@ -109,17 +108,19 @@ buttons.forEach((button) => {
         if(humanScore < 5 && computerScore < 5) {
             getComputerChoice();
             playRound(button.id, computerChoice);
-            playerSelectionMsg.textContent = `You choose ${button.id}`;
 
             if(humanScore == 5) {
-            computerSelectionMsg.textContent = "You Won! Play Again?";
+            gameResultMsg.textContent = "You won the game! Play Again?";
             playAgain();
             }
             else if (computerScore == 5) {
-            computerSelectionMsg.textContent = "You lost! Try again?";
+            gameResultMsg.textContent = "You lost the game! Try again?";
             playAgain();
             }
         };
+
+        playerScore.textContent = `Player score: ${humanScore}`;
+        enemyScore.textContent= `Computer score: ${computerScore}`;
     });
 });
 
